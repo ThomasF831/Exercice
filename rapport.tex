@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{listings}
+\lstset{language=caml}
+
+\begin{document}
+
+\begin{lstlisting}
+type 'a my_list = Nil | Cons of 'a * 'a my_list;;
+
+let rec string_of_list f l = match l with
+  | Nil -> ""
+  | Cons(x,l') -> (f x)^(string_of_list f l')
+;;
+
+# string_of_list (String.make 1) (Cons('a',Cons('b',Cons('c',Nil))));;
+- : string = "a b c "
+
+let hd l = match l with
+  | Nil -> None
+  | Cons(x,l') -> Some x
+;;
+
+# hd (Cons('a',Cons('b',Cons('c',Nil))));;
+- : char option = Some 'a'
+
+let tl l = match l with
+  | Nil -> None
+  | Cons(x,l') -> Some l'
+;;
+
+# tl (Cons('a',Cons('b',Cons('c',Nil))));;
+- : char my_list option = Some (Cons ('b', Cons ('c', Nil)))
+
+let rec length l = match l with
+  | Nil -> 0
+  | Cons(x,l') -> 1 + length l'
+;;
+
+# length (Cons('a',Cons('b',Cons('c',Nil))));;
+- : int = 3
+
+let rec map f l = match l with
+  | Nil -> Nil
+  | Cons(x,l') -> Cons(f x,map f l')
+;;
+
+#  map (function x -> match x with | 'a' -> 'A' | 'b' -> 'B' 
+| 'c' -> 'C' | _ -> ' ') (Cons('a',Cons('b',Cons('c',Nil))));;
+- : char my_list = Cons ('A', Cons ('B', Cons ('C', Nil)))
+
+\end{lstlisting}
+
+\end{document}
