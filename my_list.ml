@@ -2,7 +2,7 @@ type 'a my_list = Nil | Cons of 'a * 'a my_list;;
 
 let rec string_of_list f l = match l with
   | Nil -> ""
-  | Cons(x,l') -> (f x)^(string_of_list f l')
+  | Cons(x,l') -> (f x)^" "^(string_of_list f l')
 ;;
 
 let hd l = match l with
